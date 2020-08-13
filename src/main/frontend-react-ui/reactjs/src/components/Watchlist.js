@@ -9,13 +9,16 @@ export default class Watchlist extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies: []
+            titles: []
         };
     }
 
     componentDidMount() {
-        axios.get("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&language=en-US&page=1")
-            .then(response => console.log(response.data));
+        axios.get("https://api.themoviedb.org/3/movie/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1")
+            .then(response => response.data)
+            .then((data) => {
+                this.setState({ titles: data });
+            });
     }
 
 
@@ -35,7 +38,7 @@ export default class Watchlist extends Component {
                         </thead>
                         <tbody>
                             <tr align="center">
-                                <td colSpan="6">No TV Shows or Movies Available</td>
+                                <td colSpan="6">{this.state.titles.length} TV Shows or Movies Available</td>
                             </tr>
                         </tbody>
                     </Table>
