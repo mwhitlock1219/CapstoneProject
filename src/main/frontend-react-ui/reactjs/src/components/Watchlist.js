@@ -23,6 +23,7 @@ export default class Watchlist extends Component {
 
 
     render() {
+        console.log(this.state);
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header><FontAwesomeIcon icon={faList} /> Watchlist</Card.Header>
@@ -38,7 +39,7 @@ export default class Watchlist extends Component {
                         </thead>
                         <tbody>
                             <tr align="center">
-                                <td colSpan="6">{this.state.titles.length} TV Shows or Movies Available</td>
+                                <td colSpan="6">No TV Shows or Movies Available</td>
                             </tr>
                         </tbody>
                     </Table>

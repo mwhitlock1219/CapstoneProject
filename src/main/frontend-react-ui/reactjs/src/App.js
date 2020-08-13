@@ -20,7 +20,7 @@ function App() {
     <Router>
       <NavBar />
       <div>
-        <Route path="" exact component={Welcome} />
+        <Route path="/" exact component={Welcome} />
       </div>
       <Container>
         <Row>
