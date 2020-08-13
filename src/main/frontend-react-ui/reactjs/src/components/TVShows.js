@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class TVShows extends React.Component {
+import { Card } from 'react-bootstrap';
+
+export default class TVShows extends Component {
     render() {
-        return (<div className="text-white">Add to Watchlist</div>);
+        return (
+            <Card className={"border border-dark bg-dark text-white"}>
+                <Card.Img variant="top" src="#" />
+                <Card.Body>
+                    <Card.Title>TV Shows</Card.Title>
+                    <Card.Text>
+                        Using as a place holder atm to later insert movies. Possibly make into a component
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        );
     }
 }
-
-export default TVShows;
