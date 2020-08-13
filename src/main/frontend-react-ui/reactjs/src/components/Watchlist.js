@@ -13,17 +13,33 @@ export default class Watchlist extends Component {
         };
     }
 
+    // tv url = https://api.themoviedb.org/3/tv/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1
+
     componentDidMount() {
-        axios.get("https://api.themoviedb.org/3/movie/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1")
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({ titles: data });
-            });
+        // will 'fetch'/return api data
+        fetch("https://api.themoviedb.org/3/movie/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1")
+            .then(response => response.json())
+            .then(
+                //handle the results
+                (data) => {
+                    console.log(data.results);
+                    this.setState({
+                        titles: data.results
+                    });
+                }
+
+            )
+    
     }
 
 
     render() {
+
+        const imageURL = "https://image.tmdb.org/t/p/w200";
+
         console.log(this.state);
+
+        const { titles } = this.state;
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header><FontAwesomeIcon icon={faList} /> Watchlist</Card.Header>
@@ -38,9 +54,20 @@ export default class Watchlist extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr align="center">
-                                <td colSpan="6">No TV Shows or Movies Available</td>
-                            </tr>
+                            {titles.map((movie) => (
+                                <tr key={movie.id} align="center">
+                                    <td >
+                                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                                    </td>
+                                    <td >
+                                        <div>{movie.title}</div>
+                                    </td>
+                                    <td >
+                                        <div>{movie.overview}</div>
+                                    </td>
+
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                 </Card.Body>
