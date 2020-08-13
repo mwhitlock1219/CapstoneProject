@@ -2,6 +2,7 @@ package com.tts.stream.controller;
 
 import com.tts.stream.model.MovieResponse;
 import com.tts.stream.model.TVResponse;
+import com.tts.stream.service.MovieService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
