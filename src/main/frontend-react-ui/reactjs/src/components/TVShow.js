@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Card } from 'react-bootstrap';
 
-export default class TVShows extends Component {
+export default class TVShow extends Component {
     render() {
         return (
             <Card className={"border border-dark bg-dark text-white"}>

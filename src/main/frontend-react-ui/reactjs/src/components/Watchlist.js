@@ -14,7 +14,7 @@ export default class Watchlist extends Component {
     }
 
     componentDidMount() {
-        axios.get("")
+        axios.get("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&language=en-US&page=1")
             .then(response => console.log(response.data));
     }
 
