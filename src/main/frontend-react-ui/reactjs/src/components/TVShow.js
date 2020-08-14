@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { Card, Table } from 'react-bootstrap';
+import { Card, Table, Image, ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList } from '@fortawesome/free-solid-svg-icons'
+import { faList, faPlusSquare, faBacon } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 
 export default class TVShow extends Component {
@@ -34,18 +34,17 @@ export default class TVShow extends Component {
 
     render() {
 
-        const imageURL = "https://image.tmdb.org/t/p/w200";
-
         console.log(this.state);
 
         const { titles } = this.state;
         return (
             <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header><FontAwesomeIcon icon={faList} /> Watchlist</Card.Header>
+                <Card.Header><FontAwesomeIcon icon={faList} /> TV Shows</Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
+                                <th>Add Watchlist</th>
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Overview</th>
@@ -55,19 +54,18 @@ export default class TVShow extends Component {
                         <tbody>
                             {titles.map((tv) => (
                                 <tr key={tv.id} align="center">
-                                    <td >
-                                        <img src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} />
+                                    <td>
+                                        <ButtonGroup>
+                                            <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faPlusSquare} /></Button>{" "}
+                                            <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faBacon} /></Button>
+                                        </ButtonGroup>
                                     </td>
                                     <td >
-                                        <div>{tv.name}</div>
+                                        <img src={`https://image.tmdb.org/t/p/w200${tv.poster_path}`} />
                                     </td>
-                                    <td >
-                                        <div>{tv.overview}</div>
-                                    </td>
-                                    <td >
-                                        <div>{tv.overview}</div>
-                                    </td>
-
+                                    <td >{tv.name}</td>
+                                    <td >{tv.overview}</td>
+                                    <td >{tv.overview}</td>
                                 </tr>
                             ))}
                         </tbody>

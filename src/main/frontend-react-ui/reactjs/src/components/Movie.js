@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { Card, Table } from 'react-bootstrap';
+import { Card, Table, Image, ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList } from '@fortawesome/free-solid-svg-icons'
+import { faList, faPlusSquare, faBacon } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 
 export default class Movie extends Component {
@@ -12,8 +12,6 @@ export default class Movie extends Component {
             titles: []
         };
     }
-
-    // tv url = https://api.themoviedb.org/3/tv/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1
 
     componentDidMount() {
         // will 'fetch'/return api data
@@ -35,36 +33,38 @@ export default class Movie extends Component {
 
     render() {
 
-        const imageURL = "https://image.tmdb.org/t/p/w200";
-
         console.log(this.state);
 
         const { titles } = this.state;
         return (
             <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header><FontAwesomeIcon icon={faList} /> Watchlist</Card.Header>
+                <Card.Header><FontAwesomeIcon icon={faList} /> Movies </Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
+                                <th>Actions</th>
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Overview</th>
+                                <th>Released Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {titles.map((movie) => (
                                 <tr key={movie.id} align="center">
-                                    <td >
-                                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                                    <td>
+                                        <ButtonGroup>
+                                            <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faPlusSquare} /> Add to Watchlist</Button>
+                                            <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faBacon} /></Button>
+                                        </ButtonGroup>
                                     </td>
                                     <td >
-                                        <div>{movie.title}</div>
+                                        <Image src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
                                     </td>
-                                    <td >
-                                        <div>{movie.overview}</div>
-                                    </td>
-
+                                    <td >{movie.title}</td>
+                                    <td >{movie.overview}</td>
+                                    <td >{movie.release_date}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -13,8 +13,6 @@ export default class Watchlist extends Component {
         };
     }
 
-    // tv url = https://api.themoviedb.org/3/tv/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1
-
     componentDidMount() {
         // will 'fetch'/return api data
         fetch("https://api.themoviedb.org/3/movie/popular?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US&page=1")
@@ -29,7 +27,7 @@ export default class Watchlist extends Component {
                 }
 
             )
-    
+
     }
 
 
