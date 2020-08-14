@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import history from './components/history';
 
 import AuthService from "./services/auth.service";
 
@@ -14,6 +15,7 @@ import Movie from "./components/Movie";
 import TVShow from "./components/TVShow";
 import Watchlist from "./components/Watchlist";
 import Footer from "./components/Footer";
+import SearchResults from "./components/SearchResults";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
@@ -29,10 +31,14 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
+      searchquery: "flipper",
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     };
+
+    
+
   }
 
   componentDidMount() {
@@ -47,6 +53,8 @@ class App extends Component {
     }
   }
 
+  
+
   logOut() {
     AuthService.logout();
   }
@@ -55,7 +63,8 @@ class App extends Component {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
     return (
-      <Router>
+      <Router history={history}>
+      
         <div>
           <Navbar bg="dark" variant="dark">
             <Link to={""} className="navbar-brand">
@@ -143,11 +152,12 @@ class App extends Component {
             </div>
             <Form inline>
               <FormControl
+                id="searchField"
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-info">Search</Button>
+              <Button variant="outline-info" onClick={event =>  window.location.href='/search_results'}>Search</Button>
             </Form>
           </Navbar>
           <div>
@@ -167,6 +177,7 @@ class App extends Component {
                   <Route path="/addTV" exact component={TVShow} />
                   <Route path="/addMovie" exact component={Movie} />
                   <Route path="/list" exact component={Watchlist} />
+                  <Route exact path="/search_results" render={() => <SearchResults search={this.state.searchquery}/>} />
                 </Switch>
               </Col>
             </Row>
