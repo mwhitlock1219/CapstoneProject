@@ -5,7 +5,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import history from './components/history';
 
 import AuthService from "./services/auth.service";
 
@@ -16,6 +15,7 @@ import TVShow from "./components/TVShow";
 import Watchlist from "./components/Watchlist";
 import Footer from "./components/Footer";
 import SearchResults from "./components/SearchResults";
+import Details from "./components/Details";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
@@ -31,15 +31,42 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      searchquery: "flipper",
+      searchquery: '',
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     };
 
-    
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
+
+  
+  redirect(){
+    window.location.href='/search_results';
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({searchquery: event.target.value});
+    console.log(this.state.searchquery);
+  }
+  
+  handleSubmit(event) {
+    event.preventDefault();
+    // const scribble = this.scribble.value;
+    // const info = {scribble: scribble};
+    // const data = [...this.state.data, info];
+    // this.setState({
+    //   data: data
+    // });
+    // console.log("On submit: " + this.state.searchquery);
+    // this.props.history.push('/search_results');
+    localStorage.setItem('sq', JSON.stringify(this.state.searchquery));
+    this.redirect();
+  }
+
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
@@ -53,6 +80,7 @@ class App extends Component {
     }
   }
 
+
   
 
   logOut() {
@@ -63,7 +91,7 @@ class App extends Component {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
     return (
-      <Router history={history}>
+      <Router>
       
         <div>
           <Navbar bg="dark" variant="dark">
@@ -150,15 +178,22 @@ class App extends Component {
                   </div>
                 )}
             </div>
-            <Form inline>
+
+
+            <Form inline onSubmit={this.handleSubmit}>
+              <Button onClick={() => this.setState({sq: this.state.searchquery})} variant="outline-info">Save sq</Button>
+              <Button onClick={() => console.log(this.state)} variant="outline-info">Check State</Button>
               <FormControl
-                id="searchField"
+                // value={this.state.searchquery}
+                onChange={this.handleChange}
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-info" onClick={event =>  window.location.href='/search_results'}>Search</Button>
+              <Button type="submit" value="Submit" variant="outline-info">Search</Button>
             </Form>
+
+            
           </Navbar>
           <div>
             <Route path="/" exact component={Welcome} />
@@ -177,7 +212,10 @@ class App extends Component {
                   <Route path="/addTV" exact component={TVShow} />
                   <Route path="/addMovie" exact component={Movie} />
                   <Route path="/list" exact component={Watchlist} />
-                  <Route exact path="/search_results" render={() => <SearchResults search={this.state.searchquery}/>} />
+                  <Route path="/title_details" exact component={Details} />
+                  {/* <Route path="/search_results" render={() => <SearchResults search={this.state.sq}/>} /> */}
+                  <Route path="/search_results" exact component={SearchResults} />
+                  
                 </Switch>
               </Col>
             </Row>

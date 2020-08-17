@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card, Table, ButtonGroup, Button } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faPlusSquare, faBacon } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,58 +9,49 @@ export default class SearchResults extends Component {
         super(props);
         this.state = {
             searchresults: [],
-            titleid: '',
         };
-        this.redirect = this.redirect.bind(this);
+
     }
 
 
 
 
     componentDidMount() {
-        let search = '';
-        if (localStorage && localStorage.getItem('sq')) {
-            search = JSON.parse(localStorage.getItem('sq'));
+        let titleid = '';
+        if (localStorage && localStorage.getItem('titleid')) {
+            titleid = JSON.parse(localStorage.getItem('titleid'));
         }
         // will 'fetch'/return api data
-        fetch("https://api.themoviedb.org/3/search/multi?api_key=b644ab6b14fc5346cabffe34357d92a0&query="+ search +"&page=1")
+        // fetch("https://api.themoviedb.org/3/search/multi?api_key=b644ab6b14fc5346cabffe34357d92a0&query="+ "star" +"&page=1")
+        fetch("https://api.themoviedb.org/3/movie/"+titleid+"?api_key=b644ab6b14fc5346cabffe34357d92a0&language=en-US")
         .then(response => response.json())
         .then(
             //handle the results
             (data) => {
-                console.log(data.results);
+                console.log(data);
                 this.setState({
-                    searchresults: data.results
+                    searchresults: data
                 });
             }
             
             )
             
         }
-
-
-        redirect(results){
-            console.log("this is JSON: "+results.id);
-            this.setState({titleid: results.id});
-            console.log("This is state: "+this.state.titleid);
-            localStorage.setItem('titleid', JSON.stringify(results.id));
-            window.location.href='/title_details';
-            let testtitleid = '';
-            if (localStorage && localStorage.getItem('titleid')) {
-                testtitleid = JSON.parse(localStorage.getItem('titleid'));
-            }
-            console.log(testtitleid);
-        }
-
-
+        
         
         render() {
+        console.log(this.state.searchresults);
         const { searchresults } = this.state;
         return (
             <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header><FontAwesomeIcon icon={faList} /> Search Results</Card.Header>
+                <Card.Header><FontAwesomeIcon icon={faList} /> {searchresults.title}</Card.Header>
                 <Card.Body>
-                    <Table striped bordered hover variant="dark">
+                    <Container>
+                        <row>
+                            
+                        </row>
+                    </Container>
+                    {/* <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
                                 <th>Add Watchlist</th>
@@ -72,7 +63,7 @@ export default class SearchResults extends Component {
                         </thead>
                         <tbody>
                             {searchresults.map((results) => (
-                                <tr key={results.id} align="center" onClick={() => this.redirect(results)}>
+                                <tr key={results.id} align="center">
                                     <td>
                                         <ButtonGroup>
                                             <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faPlusSquare} /></Button>{" "}
@@ -88,7 +79,7 @@ export default class SearchResults extends Component {
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>
+                    </Table> */}
                 </Card.Body>
             </Card>
 
