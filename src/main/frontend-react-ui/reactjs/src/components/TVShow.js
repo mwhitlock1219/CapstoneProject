@@ -41,7 +41,7 @@ export default class TVShow extends Component {
         });
 
         // console.log(x);
-        axios.post("/userMovies", y)
+        axios.post("/Watchlist", y)
             .then(response => {
                 console.log(response);
             })

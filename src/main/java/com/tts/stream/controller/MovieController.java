@@ -2,6 +2,7 @@ package com.tts.stream.controller;
 
 import com.tts.stream.model.MovieResponse;
 import com.tts.stream.model.TVResponse;
+import com.tts.stream.repository.MovieRepository;
 import com.tts.stream.service.MovieService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,66 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieController {
 
     @Autowired
-    private MovieService movieService;
+    private MovieService movieService; // why not MovieRepository movieRepository to save to db
 
-    @GetMapping
-    public String getIndex(Model model) {
-        MovieResponse movies = movieService.getPopularMovies(1);
-        MovieResponse moviestr = movieService.getTopRatedMovies(1);
-        MovieResponse moviesUpcoming = movieService.getUpcomingMovies(1);
-        MovieResponse moviesNowPlaying = movieService.getNowPlayingMovies(1);
-        // MovieResponse moviesImages=movieService.getMovieImages(1);
-        TVResponse popularTVshows = movieService.getPopularTVShows(1);
-        TVResponse topRatedTVshows = movieService.getTopRatedTVShows(1);
+    // @GetMapping("/movies/{id}")
+    // public Movie retrieveMovie(@PathVariable long id){
+    // Optional<Movie> movie = movieRepository.findById(id);if(!movie.isPresent())throw new MovieNotFoundException("id-"+id);return movie.get();
+    // }
 
-        model.addAttribute("movies", movies.getResults());
-        model.addAttribute("moviestr", moviestr.getResults());
-        model.addAttribute("moviesUpcoming", moviesUpcoming.getResults());
-        model.addAttribute("moviesNowPlaying", moviesNowPlaying.getResults());
-        // model.addAttribute("moviesImages", moviesImages.getResults());
-        model.addAttribute("popularTVShows", popularTVshows.getResults());
-        model.addAttribute("topRatedTVShows", topRatedTVshows.getResults());
-
-        return "index";
-    }
-
-    @PostMapping
-    public String postIndex(Model model) {
-
-        return "index";
-    }
+    
+   
 }
-// @CrossOrigin(origins = "http://localhost:3000")
-
-// public class MovieController {
-
-// @Autowired
-// private MovieService movieService;
-
-// @GetMapping("/user")
-// public String getIndex(Model model) {
-// MovieResponse movies = movieService.getPopularMovies(1);
-// MovieResponse moviestr = movieService.getTopRatedMovies(1);
-// MovieResponse moviesUpcoming = movieService.getUpcomingMovies(1);
-// MovieResponse moviesNowPlaying = movieService.getNowPlayingMovies(1);
-// // MovieResponse moviesImages=movieService.getMovieImages(1);
-// TVResponse popularTVshows = movieService.getPopularTVShows(1);
-// TVResponse topRatedTVshows = movieService.getTopRatedTVShows(1);
-
-// model.addAttribute("movies", movies.getResults());
-// model.addAttribute("moviestr", moviestr.getResults());
-// model.addAttribute("moviesUpcoming", moviesUpcoming.getResults());
-// model.addAttribute("moviesNowPlaying", moviesNowPlaying.getResults());
-// // model.addAttribute("moviesImages", moviesImages.getResults());
-// model.addAttribute("popularTVShows", popularTVshows.getResults());
-// model.addAttribute("topRatedTVShows", topRatedTVshows.getResults());
-
-// return "index";
-// }
-
-// @PostMapping
-// public String postIndex(Model model) {
-
-// return "index";
-// }
-// }
