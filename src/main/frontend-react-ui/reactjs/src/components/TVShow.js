@@ -21,7 +21,7 @@ export default class TVShow extends Component {
             .then(
                 //handle the results
                 (data) => {
-                    console.log(data.results);
+                    // console.log(data.results);
                     this.setState({
                         titles: data.results
                     });
@@ -31,10 +31,26 @@ export default class TVShow extends Component {
 
     }
 
+    addShow(event, id) {
+        event.preventDefault();
+        // console.log(id);
+        const y = this.state.titles.find(title => {
+            if (title.id === id) {
+                return title;
+            }
+        });
+
+        // console.log(x);
+        axios.post("/userMovies", y)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     render() {
-
-        console.log(this.state);
 
         const { titles } = this.state;
         return (
@@ -48,24 +64,22 @@ export default class TVShow extends Component {
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Overview</th>
-                                <th>Seasons</th>
+                                <th>First Aired</th>
                             </tr>
                         </thead>
                         <tbody>
                             {titles.map((tv) => (
                                 <tr key={tv.id} align="center">
                                     <td>
-                                        <ButtonGroup>
-                                            <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faPlusSquare} /></Button>{" "}
-                                            <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faBacon} /></Button>
-                                        </ButtonGroup>
+                                        {/* Add onSubmit() to prevent page from auto refreshing/loading */}
+                                        <Button size="sm" variant="outline-primary" onClick={(event) => { this.addShow(event, tv.id) }}><FontAwesomeIcon icon={faPlusSquare} /></Button>
                                     </td>
                                     <td >
                                         <img src={`https://image.tmdb.org/t/p/w200${tv.poster_path}`} />
                                     </td>
                                     <td >{tv.name}</td>
                                     <td >{tv.overview}</td>
-                                    <td >{tv.overview}</td>
+                                    <td >{tv.first_air_date}</td>
                                 </tr>
                             ))}
                         </tbody>

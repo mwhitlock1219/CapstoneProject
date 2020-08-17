@@ -66,11 +66,6 @@ class App extends Component {
               STREAM
             </Link>
             <div className="navbar-nav mr-auto">
-              {/* <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li> */}
               <li className="nav-item">
                 <Link to={"addTV"} className="nav-link">
                   TV Shows
@@ -80,11 +75,6 @@ class App extends Component {
                 <Link to={"addMovie"} className="nav-link">
                   {" "}
                   Movies
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"list"} className="nav-link">
-                  Watchlist
                 </Link>
               </li>
 
@@ -107,7 +97,7 @@ class App extends Component {
               {currentUser && (
                 <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
-                    User
+                    Watchlist
                   </Link>
                 </li>
               )}
@@ -151,13 +141,14 @@ class App extends Component {
             </Form>
           </Navbar>
           <div>
-            <Route path="/" exact component={Welcome} />
+            {/* <Route path="/" exact component={Welcome} /> */}
           </div>
+          <br />
           <Container>
             <Row>
               <Col>
                 <Switch>
-                  <Route exact path={["/", "/home"]} component={Home} />
+                  <Route exact path={["/", "/home"]} component={Welcome} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/profile" component={Profile} />
@@ -166,7 +157,7 @@ class App extends Component {
                   <Route path="/admin" component={BoardAdmin} />
                   <Route path="/addTV" exact component={TVShow} />
                   <Route path="/addMovie" exact component={Movie} />
-                  <Route path="/list" exact component={Watchlist} />
+                  {/* <Route path="/list" exact component={Watchlist} /> */}
                 </Switch>
               </Col>
             </Row>

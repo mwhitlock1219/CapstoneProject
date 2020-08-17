@@ -26,7 +26,7 @@ export default class Movie extends Component {
                     });
                 }
 
-            )
+            );
 
     }
 
@@ -38,7 +38,9 @@ export default class Movie extends Component {
         const { titles } = this.state;
         return (
             <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header><FontAwesomeIcon icon={faList} /> Movies </Card.Header>
+                <Card.Header>
+                    <FontAwesomeIcon icon={faList} /> Movies
+                </Card.Header>
                 <Card.Body>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -56,7 +58,7 @@ export default class Movie extends Component {
                                     <td>
                                         <ButtonGroup>
                                             <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faPlusSquare} /> Add to Watchlist</Button>
-                                            <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faBacon} /></Button>
+                                            {/* <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faBacon} /></Button> */}
                                         </ButtonGroup>
                                     </td>
                                     <td >
