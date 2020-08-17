@@ -155,7 +155,8 @@ class App extends Component {
                   <Route path="/user" component={Watchlist} />
                   <Route path="/mod" component={BoardModerator} />
                   <Route path="/admin" component={BoardAdmin} />
-                  <Route path="/addTV" exact component={TVShow} />
+                  <Route path="/addTV" exact render={() => <TVShow user={this.state.currentUser}
+                  />} />
                   <Route path="/addMovie" exact component={Movie} />
                   {/* <Route path="/list" exact component={Watchlist} /> */}
                 </Switch>

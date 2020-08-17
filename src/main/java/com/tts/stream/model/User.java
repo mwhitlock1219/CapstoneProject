@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // private List<Movie> watchlist;
+    // @Column(name = "watch_list")
+    // private List<String> watchList;
+
+    @Column(name = "watch_list")
+    private String watchList;
 
     @NotBlank
     @Size(max = 20)
@@ -56,6 +61,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        // this.watchList = watchList;
 
     }
 

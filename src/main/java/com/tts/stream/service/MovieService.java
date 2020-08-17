@@ -6,7 +6,7 @@ import java.util.List;
 import com.tts.stream.model.Movie;
 import com.tts.stream.model.MovieDisplay;
 import com.tts.stream.model.User;
-import com.tts.stream.repository.MovieRepository;
+import com.tts.stream.repository.WatchlistRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class MovieService {
 
     @Autowired
-    private MovieRepository movieRepository;
+    private WatchlistRepository movieRepository;
 
     public List<MovieDisplay> findAll(User user) {
         List<Movie> movies = movieRepository.findAllByUser(user);

@@ -33,15 +33,20 @@ export default class TVShow extends Component {
 
     addShow(event, id) {
         event.preventDefault();
-        // console.log(id);
+        console.log(this.props.user.id);
         const y = this.state.titles.find(title => {
             if (title.id === id) {
                 return title;
             }
         });
 
+        const token = localStorage.getItem("token")
         // console.log(y);
-        axios.post("/watchlist", y)
+        const package1 = {
+            userId: this.props.user.id,
+            movieId: id
+        }
+        axios.post("http://localhost:8080/watchlist", package1, { headers: { Authorization: `Bearer ${token}` } })
             .then(response => {
                 console.log(response);
             })

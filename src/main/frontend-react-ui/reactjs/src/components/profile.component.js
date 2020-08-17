@@ -21,11 +21,14 @@ export default class Profile extends Component {
     }
 
     render() {
+
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />;
         }
 
         const { currentUser } = this.state;
+
+        currentUser ? localStorage.setItem("token", currentUser.accessToken) : console.log("hi");
 
         return (
             <div className="container">
@@ -38,7 +41,7 @@ export default class Profile extends Component {
 
 
                             <p>
-                                <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)}{" "}
+                                <strong>Token:</strong> {currentUser.accessToken}{" "}
               ...{" "}
                                 {currentUser.accessToken.substr(
                                     currentUser.accessToken.length - 20

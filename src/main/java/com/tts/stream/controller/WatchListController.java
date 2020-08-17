@@ -1,7 +1,11 @@
 package com.tts.stream.controller;
 
+import java.util.Optional;
+
 import com.tts.stream.model.Movie;
+import com.tts.stream.model.MovieResponse;
 import com.tts.stream.model.User;
+import com.tts.stream.repository.UserRepository;
 import com.tts.stream.service.MovieService;
 import com.tts.stream.service.UserService;
 
@@ -19,18 +23,38 @@ public class WatchListController {
     @Autowired
     public UserService userService;
 
+    @Autowired
+    public UserRepository userRepository;
+
     // @PostMapping("/watchlist")
     // public void addMovieToWatchlist(User user, @RequestBody Movie movie) {
-    //     userService.addMovieToWatchlist(user, movie);
+    // userService.addMovieToWatchlist(user, movie);
     // }
-
-// MovieRepository movieRepository
-
-// @GetMapping("/movies/{id}")
-// public Movie retrieveMovie(@PathVariable long id){
-// Optional<Movie> movie =
-// movieRepository.findById(id);if(!movie.isPresent())throw new
-// MovieNotFoundException("id-"+id);return movie.get();
-// }
+    @PostMapping("/watchlist")
+    public void addMovieToWatchlist(@RequestBody MovieResponse package1) {
+        Optional<User> user = userRepository.findById(Long.parseLong(package1.getUserId()));
+        User currentUser = user.get();
+        // System.out.println(currentUser);
+        if (currentUser.getWatchList() == null) {
+            currentUser.setWatchList(package1.getMovieId());
+            System.out.println(currentUser.getWatchList());
+            userRepository.save(currentUser);
+        } else {
+            String watchList = currentUser.getWatchList();
+            String[] whatever = watchList.split(" ", -1);
+            Boolean alreadyInHere = false;
+            for (int i = 0; i < whatever.length; i++) {
+                if (whatever[i].equals(package1.getMovieId())) {
+                    alreadyInHere = true;
+                    System.out.println(alreadyInHere);
+                }
+            }
+            if (!alreadyInHere) {
+                currentUser.setWatchList(currentUser.getWatchList() + " " + package1.getMovieId());
+                userRepository.save(currentUser);
+            }
+        }
+        System.out.println(currentUser.getWatchList());
+    }
 
 }

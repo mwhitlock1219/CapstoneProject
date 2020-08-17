@@ -1,12 +1,30 @@
 package com.tts.stream.model;
 
-import java.util.List;
-
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 public class MovieResponse {
-    private List<Movie> results;
+    private String movieId;
+    private String userId;
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public MovieResponse(String movieId, String userId) {
+        this.movieId = movieId;
+        this.userId = userId;
+    }
 }
