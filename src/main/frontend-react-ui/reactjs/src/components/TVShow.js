@@ -40,8 +40,8 @@ export default class TVShow extends Component {
             }
         });
 
-        // console.log(x);
-        axios.post("/Watchlist", y)
+        // console.log(y);
+        axios.post("/watchlist", y)
             .then(response => {
                 console.log(response);
             })
