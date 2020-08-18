@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 public class MovieService {
 
     @Autowired
-    private WatchlistRepository movieRepository;
+    private WatchlistRepository watchListRepository;
 
-    public List<MovieDisplay> findAll(User user) {
-        List<Movie> movies = movieRepository.findAllByUser(user);
-        return formatMovie(movies);
-    }
+    // public List<MovieDisplay> findAll(User user) {
+    //     List<Movie> movies = watchListRepository.findAllByUser(user);
+    //     return formatMovie(movies);
+    // }
 
     private List<MovieDisplay> formatMovie(List<Movie> movies) {
 

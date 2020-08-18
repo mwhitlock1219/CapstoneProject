@@ -33,8 +33,6 @@ export default class Watchlist extends Component {
 
     render() {
 
-        const imageURL = "https://image.tmdb.org/t/p/w200";
-
         console.log(this.state);
 
         const { titles } = this.state;
@@ -55,7 +53,7 @@ export default class Watchlist extends Component {
                             {titles.map((movie) => (
                                 <tr key={movie.id} align="center">
                                     <td >
-                                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                                        <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
                                     </td>
                                     <td >
                                         <div>{movie.title}</div>
